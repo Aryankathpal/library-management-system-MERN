@@ -1,0 +1,37 @@
+.edges {
+    float:right;
+    position: absolute;
+    left:265px;
+    right:15px;
+    top:15px;
+    bottom: 15px;
+    border-radius: 0.5em;
+}
+
+.bookLabel{
+    display: inline-block !important;
+    min-width: 150px !important;
+    /* background-color: aquamarine; */
+    text-align: left;
+    /* font-weight: bold; */
+    font-size: 16px;
+}
+.submitBtn{
+    margin: auto;
+    transform: translateX(-365%);
+    margin-top: 30px;
+}
+.reqbook{
+    filter:none;
+    height: 500px;
+    width:500px;
+    float: right;
+    margin-top: -190px;
+}
+.form{
+  margin: 100px 0 0 20px;
+}
+.accept{
+    margin-left: -20px;
+    margin-right: -60px;
+}
