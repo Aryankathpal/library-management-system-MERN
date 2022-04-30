@@ -1,3 +1,4 @@
+import '../css/issuecard.css'
 import '../css/dashboard.css'
 import '../css/issued.css'
 import { BooksNav } from '../components/books/bookNav';
@@ -33,6 +34,7 @@ export const Issued=()=>{
       <td>{book.author}</td>
       <td>{book.IssuedOn}</td>
       <td>{book.returnDate}</td>
+      <img src={book.image} class="card-img-top" style={{height:'11rem'}}/>
       <td><button onClick={()=>returnbtn(book)} className='btn btn-success'>Return</button></td>
 
     </tr>)
@@ -40,24 +42,30 @@ export const Issued=()=>{
     return(
          <div className="edges">
         <BooksNav name="Issued Books" />
-        <div className='main'>
-          {issue.length==0?<img src={require('../css/no-data.png')} style={{width:'500px',height:'500px'}}/>:<>
-        <table class="table table-hover t-edit">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">ISBN</th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">Issued date</th>
-      <th scope="col">Return date</th>
-    </tr>
-  </thead>
-  <tbody>
-    {issueList}
-  </tbody>
-</table></>}
-</div>
+
+          {issue.length==0?<div className='main'><img src={require('../css/no-data.png')} style={{width:'500px',height:'500px'}}/></div>:<>
+          
+    {issue.map((book,index)=>
+    <div className=''>
+      <div className='wrappers'>
+      <div class="issuecard-img">
+        <img src={book.image} style={{height:200,width:150,marginTop:0}} />
+      </div>
+      <div class="issuecard-info" >
+        <div class="issuecard-text">
+          <h1>{book.Name}</h1>
+          <h2>{book.author}</h2>
+          <p>Isbn - {book.isbn}<br/>Issued on - {book.IssuedOn}<br /> Return Date - {book.returnDate} </p>
         </div>
+      <div class="issuecard-price-btn">
+          <button onClick={()=>returnbtn(book)} className='btn btn-success'>Return</button>
+      </div>
+      </div>
+      </div>
+      </div>
+    )}
+  </>}
+</div>
+
     )
 }

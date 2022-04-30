@@ -25,8 +25,8 @@ export const RequestBook = () => {
       <div className="edges">
         <BooksNav name="Request Book" />
         <div className="main">
-          <div className='form'>
-          <form onSubmit={handleReq}>
+          {/* <div className='request-form'> */}
+          <form onSubmit={handleReq} className="req-form">
             <div class="row g-3 align-items-center">
               <div class="col-auto">
                 <label for="bookName" class="col-form-label bookLabel">
@@ -74,9 +74,12 @@ export const RequestBook = () => {
               Submit
             </button>
             </form>
-          <img className='reqbook' src={require('../css/reqbook.png')} />
+                      <div className='request-form'>
+
+            <img className='reqbook' src={require('../css/reqbook.png')} />
+
           </div>
-          
+
         </div>
       </div>
       

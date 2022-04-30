@@ -1,7 +1,8 @@
-import React,{ createContext,useState,useReducer } from "react";
+import React,{ createContext,useState,useReducer, useEffect } from "react";
 import axios from "../api/axios";
 
 export const AuthContext = createContext({});
+
 
 const getdate = ()=>{
     const d = new Date();
@@ -35,7 +36,7 @@ return dateString
 
 export const AuthProvider = ({children}) =>{
 
-    const[token,setToken] = useState('');
+    const[token,setToken] = useState(sessionStorage.getItem('token'));
     const[issue,setIssue] = useState([]);
     const[entertainment,setEntertainment] = useState([]);
     const[humour,setHumour] = useState([]);
@@ -44,11 +45,16 @@ export const AuthProvider = ({children}) =>{
     const[art,setArt] = useState([]);
     const[returned,setReturned] = useState([]);
     const[results,setResults] = useState([]); 
-    const[role,setRole] = useState('');
+    const[role,setRole] = useState(sessionStorage.getItem('role'));
     const [requested,setRequested] = useState([]);
     const [fine,setFine] = useState(1);
-
+ 
     // const [books,dispatch] = useReducer(BookReducer,[])
+    const update=()=>{
+          
+    }
+   
+    
 
     const getIssueBooks=async()=>{
         try{
@@ -67,6 +73,7 @@ export const AuthProvider = ({children}) =>{
     }
 
     const getBooks=async(id)=>{
+        
         try{
             const response = await axios.get(`/search/${id}`,
             {
@@ -99,7 +106,7 @@ export const AuthProvider = ({children}) =>{
 
     const issueBooks=async(Book)=>{
         try{
-             await axios.post('/issued-books',JSON.stringify({Name:Book.name,author:Book.author,isbn:Book.isbn,IssuedOn:getdate(),returnDate:returndate()}),
+             await axios.post('/issued-books',JSON.stringify({Name:Book.name,image:Book.image,author:Book.author,isbn:Book.isbn,IssuedOn:getdate(),returnDate:returndate()}),
             {
                 headers:{
                 Authorization:`Bearer ${token}`}
@@ -176,9 +183,10 @@ export const AuthProvider = ({children}) =>{
                 Authorization:`Bearer ${token}`}
               })
               setResults(response.data);
-              console.log(response.data);
+              console.log("results = "+response.data);
         }
         catch(e){
+            console.log("results = "+results);
             console.log(e);
         }
     }
@@ -230,7 +238,7 @@ export const AuthProvider = ({children}) =>{
             console.log(response.data[0].fine);
         }
         catch(e){
-            console.log(e);
+            console.log(e.response.data);
         }
     }
 
@@ -249,12 +257,12 @@ export const AuthProvider = ({children}) =>{
 
     return(
         <AuthContext.Provider value={{
-            setToken,token,getIssueBooks,setIssue,
+            token,getIssueBooks,setIssue,
             issue,entertainment,biography,humour,poetry
             ,art,getBooks,issueBooks,getReturnBooks,returned
             ,deleteIssue,requestbook,results,searchbook,role
-            ,setRole,getRequestedBooks,requested,deletereq,addbook
-            ,getFine,fine,deleteBook
+            ,getRequestedBooks,requested,deletereq,addbook
+            ,getFine,fine,deleteBook,setToken,setRole,update,role
         }}>{children}</AuthContext.Provider>
     )
 }

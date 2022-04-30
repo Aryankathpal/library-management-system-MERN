@@ -17,16 +17,21 @@ export const BookDetail=()=>{
 
     useEffect( async ()=>{
         await getIssueBooks();
-        const response = await axios.get(`/search/isbn/${location.state.isbn}`,{
+        
+        const response = await axios.get(`/search/isbn/${location.state.data.isbn}`,{
             headers:{
             Authorization:`Bearer ${token}`}
           })
-          if(response.data[0].copies<1)setBtnValue('Not available');
+          console.log(response.data[0].copies);
+          if(response.data[0].copies<1){
+              setBtnValue('Not available');
+              setBtnColor('btn-secondary disabled');
+            }
           else{
           let flag=0;
          
           issue.every(book=>{
-              if(book.isbn==location.state.isbn){
+              if(book.isbn==location.state.data.isbn){
                   flag=1;
                   return false;
               }
@@ -41,7 +46,7 @@ export const BookDetail=()=>{
           }
         }
         
-    })
+    },[])
 
     const btnHandle=()=>{
         
@@ -50,7 +55,7 @@ export const BookDetail=()=>{
         }
         if(btnValue=='Not available')addToast('Book is not available at this moment try after sometime',{appearance:'error'})
         else{
-        issueBooks(location.state);
+        issueBooks(location.state.data);
         setBtnValue('Issued');
         setBtnColor('btn--change');
         }
@@ -72,28 +77,28 @@ export const BookDetail=()=>{
         <h1>Book details</h1> */}
         <section class="product">	
 			<div class="photo-main">
-				<img class='photo'src={location.state.image} />
+				<img class='photo'src={location.state.data.image} />
 			</div>
 	<div class="product__info">
 		<div class="title">
-			<h1>{location.state.name}</h1>
-			<span>Author name</span>
+			<h1>{location.state.data.name}</h1>
+			<span>{location.state.data.author}</span>
 		</div>
 		
 		
 		<div class="description">
 			<h3>Details</h3>
 			<ul>
-				<li>Language-english</li>
-				<li>Publisher</li>
-				<li>ISBN</li>
-				<li>Rating</li>
-                <li>Stauts</li>
+				<li>Language    -   english</li>
+				<li>Publisher   -   None</li>
+				<li>ISBN        -   {location.state.data.isbn}</li>
+				<li>Rating      -   {location.state.data.book_depository_stars}</li>
+                <li>category    -   {location.state.data.category}</li>
 			</ul>
 		</div>
         {role==='user'?
-		<button onClick={btnHandle} class={btnColor}>{btnValue}</button>:
-        <button onClick={()=>deletebtn(location.state.isbn)} class='buy--btn'>Delete Book</button>}
+		<button onClick={btnHandle} class={(btnValue=='Not available'?"btn btn-secondary disabled":btnColor)}>{btnValue}</button>:
+        <button onClick={()=>deletebtn(location.state.data.isbn)} class='buy--btn'>Delete Book</button>}
         
 	</div>
 </section>

@@ -5,7 +5,22 @@ import { AuthContext } from '../context/authProvider';
 import { useContext, useEffect } from 'react';
 export const Books=()=>{
     
-    const {entertainment,biography,humour,poetry,art,setResults}=useContext(AuthContext);
+    const {entertainment,biography,humour,poetry,art,setResults,getBooks}=useContext(AuthContext);
+
+    useEffect(async()=>{
+        
+        await getBooks('Entertainment');
+        await getBooks('Humour');
+        await getBooks('Biography');
+        await getBooks('Poetry-Drama');
+        await getBooks('Art-Photography');
+       
+       
+        return()=>{
+            console.log("loaded");
+        }
+        
+    },[])
 
     return(
         <div className="edges">

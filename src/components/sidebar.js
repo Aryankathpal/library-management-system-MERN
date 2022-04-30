@@ -1,6 +1,6 @@
 import "../css/sidebar.css";
 import { useState,useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import GridViewIcon from '@mui/icons-material/GridView';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -10,8 +10,19 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AuthContext } from "../context/authProvider";
+
+
 export const Sidebar = () => {
-  const {getIssueBooks,issue,role} = useContext(AuthContext);
+  const {getIssueBooks,issue,role,setToken,setRole} = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logout=()=>{
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('role');
+    setToken('');
+    setRole('');
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -55,7 +66,8 @@ export const Sidebar = () => {
                   <span className="item"><AddBoxIcon fontSize="small" style={{marginRight:'5px',marginTop:'-3px'}}/>Request Book</span>
                 </NavLink>
             </li>
-          </ul>:<ul><li>
+          </ul>:  
+          <ul><li>
                 <NavLink
                   to="books"
                   className={({ isActive }) => (isActive ? "active" : "")}>
@@ -76,10 +88,13 @@ export const Sidebar = () => {
           <span className="item"><CurrencyRupeeIcon fontSize="small" style={{marginRight:'5px',marginTop:'-3px'}}/>Requested Books</span>
         </NavLink>
     </li></ul>
-            }
+    // :<>
+    // {navigate('/login')}
+  }
           <div className="logout">
           <NavLink
                   to="/"
+                  onClick={logout}
                   // className={({ isActive }) => (isActive ? "active" : "")}
                   >
                   <AccountCircleIcon fontSize="medium" style={{marginRight:'5px',marginTop:'-3px'}}/>Logout

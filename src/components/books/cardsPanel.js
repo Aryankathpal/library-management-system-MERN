@@ -22,6 +22,12 @@ export const CardsPanel=({data})=>{
             items: 1
           }
     }
+    const bookList = data.map((book,index)=>
+    <tr key={book._id}>
+      <th scope="row" ></th>
+      <Card data={book}
+            />
+    </tr>)
     return(
         <div className='tops'>
         
@@ -37,67 +43,7 @@ export const CardsPanel=({data})=>{
             >
             
             
-            <Card image={data[0].image}
-            name={data[0].name}
-            author={data[0].author}
-            isbn={data[0].isbn}
-            copies={data[0].copies}
-            />
-            <Card image={data[1].image}
-            name={data[1].name}
-            author={data[1].author}
-            isbn={data[1].isbn}
-            copies={data[1].copies}
-            />
-            <Card image={data[2].image}
-            name={data[2].name}
-            author={data[2].author}
-            isbn={data[2].isbn}
-            copies={data[2].copies}
-            />
-            <Card image={data[3].image}
-            name={data[3].name}
-            author={data[3].author}
-            isbn={data[3].isbn}
-            copies={data[3].copies}
-            />
-            <Card image={data[4].image}
-            name={data[4].name}
-            author={data[4].author}
-            isbn={data[4].isbn}
-            copies={data[4].copies}
-            />
-            <Card image={data[5].image}
-            name={data[5].name}
-            author={data[5].author}
-            isbn={data[5].isbn}
-            copies={data[5].copies}
-            />
-            <Card image={data[6].image}
-            name={data[6].name}
-            author={data[6].author}
-            isbn={data[6].isbn}
-            copies={data[6].copies}
-            />
-            <Card image={data[7].image}
-            name={data[7].name}
-            author={data[7].author}
-            isbn={data[7].isbn}
-            copies={data[7].copies}
-            />
-            <Card image={data[8].image}
-            name={data[8].name}
-            author={data[8].author}
-            isbn={data[8].isbn}
-            copies={data[8].copies}
-            />
-            <Card image={data[9].image}
-            name={data[9].name}
-            author={data[9].author}
-            isbn={data[9].isbn}
-            copies={data[9].copies}
-            />
-            {/* <Card /> */}
+            {bookList}
             
             </Carousel>
             </>}

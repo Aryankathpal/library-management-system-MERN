@@ -6,7 +6,8 @@ import SignupCard from "./screens/Signup";
 import { AuthProvider } from "./context/authProvider";
 import {ToastProvider} from 'react-toast-notifications';
 import { AuthContext } from "./context/authProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+
 
 import {
   BrowserRouter as Router,
@@ -37,10 +38,12 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route path='*' element={<Navigate replace to='/login'/>}/>
           <Route path="/" element={<HomePage />}>
             <Route path="/login" element={<LoginCard />} />
             <Route path="/signup" element={<SignupCard />} />
           </Route>
+          {role==='user'?
           <Route path="/home" element={<Home/>}>
           <Route path="/home" element={<Navigate replace to='/home/dashboard'/>} />
           <Route path="dashboard" element={<Dashboard />} />
@@ -50,18 +53,21 @@ function App() {
           <Route path="issued" element={<Issued />} />
           <Route path="returned" element={<Returned />} />
           <Route path="request-book" element={<RequestBook />} />
+          </Route>:
           
-          
-          {role==='admin'?
+          role==='admin'?
           <>
+          <Route path="/home" element={<Home/>}>
           <Route path="/home" element={<Navigate replace to='/home/books'/>} />
+          <Route path="books" element={<Books/>}/>
           <Route path="add-book" element={<AddBook />} />
           <Route path="requested-books" element={<RequestedBooks />} />
-
-          </>:
-          <Route path='add-book' element={<Navigate replace to='/login' />}/>
-          }
           </Route>
+          </>:<>
+          <Route path='*' element={<Navigate replace to='/login' />}/>
+          </>
+          }
+          
             
         </Routes>
       </Router>
@@ -70,7 +76,10 @@ function App() {
 }
 
 function App1(){
+ 
+  
   return(
+    
     <AuthProvider >
       <ToastProvider placement="bottom-right" autoDismiss={true}><App /></ToastProvider> 
     </AuthProvider>

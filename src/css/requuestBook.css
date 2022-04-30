@@ -23,13 +23,24 @@
 }
 .reqbook{
     filter:none;
-    height: 500px;
-    width:500px;
-    float: right;
-    margin-top: -190px;
+    height: 380px;
+    width:380px;
+    /* float: right; */
+    margin-top: -360px;
+    position: fixed;
+    right: 40px;
 }
-.form{
-  margin: 100px 0 0 20px;
+.req-form{
+    margin-top: 50px;
+    margin-left: 80px;
+    margin-bottom: 100px;
+}
+.request-form{
+  margin: 0px 0 0 0px;
+  display: inline-block;
+  background-color: aquamarine;
+  width: auto;
+  height: auto;
 }
 .accept{
     margin-left: -20px;

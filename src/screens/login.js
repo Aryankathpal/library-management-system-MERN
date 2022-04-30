@@ -1,9 +1,10 @@
 import '../css/login.css'
-import { useState,useContext } from 'react';
+import { useState,useContext, useEffect } from 'react';
 import { useNavigate,Link } from 'react-router-dom';
 import { AuthContext } from '../context/authProvider';
 import axios from '../api/axios';
 import { useToasts } from 'react-toast-notifications';
+
 
 const LOGIN_URL = '/signin';
 
@@ -14,8 +15,15 @@ export default function LoginCard() {
   const[password,setPassword] = useState('');
 
 
+
   const {setToken,setRole} = useContext(AuthContext);
   const { addToast } = useToasts();
+  useEffect(()=>{
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('role');
+    setToken('');
+    setRole('');
+  },[])
 
   const handleSubmit= async (props)=>{
     props.preventDefault();
@@ -23,12 +31,17 @@ export default function LoginCard() {
     
     try{
       const response = await axios.post(LOGIN_URL,JSON.stringify({email,password}));
-    setToken(response.data.token);  
+      console.log(response.data);
+      console.log(response.data.token);
+    sessionStorage.setItem('token',response.data.token);
+    sessionStorage.setItem('role',response.data.user.role);
+    setToken(response.data.token);
     setRole(response.data.user.role);
-
     setEmail('');
     setPassword('');
+
     response.data.user.role=='user'?navigate('/home'):navigate('/home/books');
+    console.log("done");
     addToast('succesful', { appearance: 'success' });
     }
     catch(e){

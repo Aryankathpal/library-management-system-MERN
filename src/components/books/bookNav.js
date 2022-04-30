@@ -1,21 +1,24 @@
 import "../../css/books.css";
 import {useState,useContext} from 'react';
 import { AuthContext } from "../../context/authProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,createSearchParams } from "react-router-dom";
 
 
 
 export const BooksNav = ({name}) => {
 
+  const[search,setSearch] = useState('');
   const{searchbook} = useContext(AuthContext);
   const navigate = useNavigate();
+  const params = [['name',`${search}`]]
+  const pathname = '/home/books/search' ;
 
-    const[search,setSearch] = useState('');
+    
     const submit=(props)=>{
       props.preventDefault();
       console.log("called");
       searchbook(search);
-      navigate('/home/books/search');
+      navigate(`${pathname}?${createSearchParams(params)}`);
     }
 
 
