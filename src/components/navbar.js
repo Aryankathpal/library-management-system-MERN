@@ -1,5 +1,5 @@
-
-import {Link, useNavigate} from 'react-router-dom';
+import '../css/navbar.css';
+import {Link, useNavigate,NavLink} from 'react-router-dom';
 import { useState } from "react";
 
 
@@ -24,9 +24,9 @@ export const Navbar = () => {
     <>
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          Navbar
-        </a>
+        <h2 className="navbar-brand" >
+          LIBRARY
+        </h2>
         <button
           className="navbar-toggler"
           type="button"
@@ -41,10 +41,10 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-                <button className='btn btn-primary me-2' onClick={loginfn}>Login</button>
+                <button className='btn btn-primary navbarc me-2' style={{backgroundColor:'transparent',color:'black',borderColor:'transparent'}} onClick={loginfn}>Login</button>
             </li>
             <li className="nav-item">
-            <button className='btn btn-primary' onClick={signinfn}>Signup</button>
+            <button className='btn btn-primary navbarc' style={{backgroundColor:'transparent',color:'black',borderColor:'transparent'}} onClick={signinfn}>Signup</button>
             </li>
           </ul>
         </div>

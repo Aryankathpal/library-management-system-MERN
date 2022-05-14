@@ -1,48 +1,45 @@
 import { BooksNav } from "../components/books/bookNav"
 import { AuthContext } from "../context/authProvider";
 import { useContext,useEffect } from "react";
+import '../css/returned.css'
 
 export const Returned=()=>{
     const {getReturnBooks,returned} = useContext(AuthContext);
-
 
     useEffect(async()=>{
         await getReturnBooks();
       })
 
-      const returnList = returned.map((book,index)=>
-      <tr key={book._id}>
-     <th scope="row" >{index+1}</th>
-     <td>{book.isbn}</td>
-     <td>{book.Name}</td>
-     <td>{book.author}</td>
-     <td>{book.IssuedOn}</td>
-     <td>{book.returnedOn}</td>
+   const returnList = returned.map((book,index)=>
+   <div class="service">
+      <div class="flip-box">
+        <div class="flip-box-inner">
+          <div class="flip-box-front">
+          <img className='images' src={book.image}/>
+          </div>
+          <div class="flip-box-back">
+            <p>Issued On  {book.IssuedOn}</p>
+            <p>Due Date {book.dueDate}</p>
+            <p>Returned on  {book.returnedOn}</p>
+            <p>Fine - ${book.fine}</p>
 
-   </tr>)
+          </div>
+        </div>
+      </div>
+    </div>
+   )
       
       return(
         <div className="edges">
        <BooksNav name="Returned Books" />
-       <div className='main'>
-         {returned.length==0?<img src={require('../css/no-data.png')} style={{width:'500px',height:'500px'}}/>:<>
-       <table class="table table-hover t-edit">
- <thead>
-   <tr>
-     <th scope="col">#</th>
-     <th scope="col">ISBN</th>
-     <th scope="col">Title</th>
-     <th scope="col">Author</th>
-     <th scope="col">Issue date</th>
-     <th scope="col">Return date</th>
-   </tr>
- </thead>
- <tbody>
-  {returnList}
- </tbody>
-</table></>}
+
+         {returned.length==0?<div className="main"><img src={require('../css/no-data.png')} style={{width:'500px',height:'500px'}}/></div>:<>
+      
+<div className="row"> {returnList}</div>
+
+         </>}
 </div>
-       </div>
+
    )
 }
 

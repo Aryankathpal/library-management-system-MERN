@@ -10,9 +10,11 @@
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 20px solid white;
+    border-bottom: 20px solid white ;
     right: 0;
     margin-right: 120px;
+   box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.1);
+    
 
   }
   /* html,body{
@@ -32,7 +34,7 @@
     width: 380px;
     background: #fff;
     border-radius: 15px;
-    box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
     right:0;
     margin-right: 10px;
     margin-top: 15px;
@@ -40,6 +42,7 @@
 
   .wrapper form{
     padding: 25px 30px 30px 30px;
+
   }
   .wrapper form .field{
     height: 50px;
@@ -110,12 +113,14 @@
     color: #fff;
     border: none;
     padding-left: 0;
-    margin-top: -10px;
+
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-    background:#4299E1;
     transition: all 0.3s ease;
+    background: #142666;
+    background-color: #142666;
+
   }
   form .field input[type="submit"]:active{
     transform: scale(0.95);

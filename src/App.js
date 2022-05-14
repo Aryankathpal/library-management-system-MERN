@@ -23,7 +23,7 @@ import {Issued } from './screens/issued';
 import {Returned } from './screens/returned';
 import {NotReturned } from './screens/notReturned';
 import { RequestBook } from "./screens/requestBook";
-
+import {UpdateBook } from './screens/admin/updateBook';
 import { BookDetail } from "./screens/bookdetail";
 import {SearchBook }from "./components/books/searchbook";
 import {AddBook} from "./screens/admin/addbook";
@@ -60,15 +60,16 @@ function App() {
           <Route path="/home" element={<Home/>}>
           <Route path="/home" element={<Navigate replace to='/home/books'/>} />
           <Route path="books" element={<Books/>}/>
+          <Route path="books/book-details" element={<BookDetail/>} />
+          <Route path="books/search" element={<SearchBook/>} />
           <Route path="add-book" element={<AddBook />} />
           <Route path="requested-books" element={<RequestedBooks />} />
+          <Route path="update-book" element={<UpdateBook/>} />
           </Route>
           </>:<>
           <Route path='*' element={<Navigate replace to='/login' />}/>
           </>
           }
-          
-            
         </Routes>
       </Router>
     </div>

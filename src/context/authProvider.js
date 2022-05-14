@@ -47,7 +47,9 @@ export const AuthProvider = ({children}) =>{
     const[results,setResults] = useState([]); 
     const[role,setRole] = useState(sessionStorage.getItem('role'));
     const [requested,setRequested] = useState([]);
-    const [fine,setFine] = useState(1);
+    const [fine,setFine] = useState(0);
+    const [requestStatus , setRequestStatus] = useState([]);
+    const [user,setUser] = useState({});
  
     // const [books,dispatch] = useReducer(BookReducer,[])
     const update=()=>{
@@ -117,6 +119,19 @@ export const AuthProvider = ({children}) =>{
             console.log(e.response);
         }
     }
+    const getStatus = async()=>{
+        try{
+            const response = await axios.get('/requestedBooks-status',
+            {
+                headers:{
+                Authorization:`Bearer ${token}`}
+              })
+            setRequestStatus(response.data);
+        }
+        catch(e){
+            console.log(e.response);
+        }
+    }
 
     // const returnBooks=async(Book)=>{
     //     try{
@@ -175,9 +190,9 @@ export const AuthProvider = ({children}) =>{
             console.log(e);
         }
     }
-    const searchbook=async(id)=>{
+    const searchbook=async(option,search)=>{
         try{
-            const response = await axios.get(`/searchs/${id}`,
+            const response = await axios.get(`/searchm/${option}/${search}`,
             {
                 headers:{
                 Authorization:`Bearer ${token}`}
@@ -244,7 +259,35 @@ export const AuthProvider = ({children}) =>{
 
     const deleteBook=async(isbn)=>{
         try{
-            await axios.post('/deletebook',JSON.stringify({isbn}),{
+            const response = await axios.post('/deletebook',JSON.stringify({isbn}),{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+            console.log(response.data); 
+            return response.data;
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    const updateStatus = async(key,option)=>{
+        try{
+            const response = await axios.post(`/updatestatus/${key}/${option}`,JSON.stringify({key}),{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+        }
+        catch(e){
+            console.log(e.response.data);
+        }
+    }
+    
+    const UpdateBook=async(Book)=>{
+        try{
+            const response = await axios.post(`/updateBook`,JSON.stringify(Book),{
                 headers:{
                     Authorization:`Bearer ${token}`
                 }
@@ -262,7 +305,8 @@ export const AuthProvider = ({children}) =>{
             ,art,getBooks,issueBooks,getReturnBooks,returned
             ,deleteIssue,requestbook,results,searchbook,role
             ,getRequestedBooks,requested,deletereq,addbook
-            ,getFine,fine,deleteBook,setToken,setRole,update,role
+            ,getFine,fine,deleteBook,setToken,setRole,update,role,
+            getStatus,requestStatus,updateStatus,UpdateBook,user,setUser
         }}>{children}</AuthContext.Provider>
     )
 }

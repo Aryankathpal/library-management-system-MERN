@@ -17,7 +17,7 @@ export const SearchBook=()=>{
         <BooksNav name="Books" />
         <div className='main' style={{boxShadow: '0 0 11px rgba(33,33,33,.2)'}}>
         
-            <div className="row search">{searchList}</div>
+        {results.length==0?<img src={require('../../css/no-data.png')} style={{width:'500px',height:'500px'}}/>:<div className="row search">{searchList}</div>}
         
             </div>
             </div>

@@ -12,15 +12,29 @@ export const BooksNav = ({name}) => {
   const navigate = useNavigate();
   const params = [['name',`${search}`]]
   const pathname = '/home/books/search' ;
-
+  const [value,setValue] = useState('Search By');
+  const [option,setOption] = useState('Search By');
     
     const submit=(props)=>{
       props.preventDefault();
       console.log("called");
-      searchbook(search);
+      if (option === 'Search By') {
+        // addToast('Please select a search option', { appearance: 'error' });
+        return true;
+    }
+    searchbook(option, search);
       navigate(`${pathname}?${createSearchParams(params)}`);
     }
+  //   const searchHandler = (e) => {
+  //     e.preventDefault();
+  //     if (option === 'Search By') {
+  //         addToast('Please select a search option', { appearance: 'error' });
+  //         return true;
+  //     }
 
+  //     searchbook(option, search);
+  //     navigate(`${pathname}?${createSearchParams(params)}`);
+  // }
 
   return (
     <div className="booknav" > 
@@ -33,7 +47,6 @@ export const BooksNav = ({name}) => {
           <a class="navbar-brand" href="#">
             {name}
           </a>
-          {name=='Books'?<>
           <button
             class="navbar-toggler"
             type="button"
@@ -46,9 +59,27 @@ export const BooksNav = ({name}) => {
             
             <span class="navbar-toggler-icon"></span>
           </button>
+          {name=='Books'?<>
+          
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              
+            <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {value}
+                                    </a>
+                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a className="dropdown-item" href="#" onClick={(e) => {
+                                            setValue('Title')
+                                            setOption('name')
+                                        }}>Title</a></li>
+                                        <li><a className="dropdown-item" href="#" onClick={(e) => {
+                                            setValue('Author')
+                                            setOption('author')
+                                        }}>Author</a></li>
+                                        {/* <li><a className="dropdown-item" href="#" onClick={() => setOption('Category')}>Category</a></li> */}
+                                    </ul>
+                                
+      </li>
             </ul>
             <form class='d-flex' onSubmit={submit}>
               <input

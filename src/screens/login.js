@@ -16,7 +16,7 @@ export default function LoginCard() {
 
 
 
-  const {setToken,setRole} = useContext(AuthContext);
+  const {setToken,setRole,setUser} = useContext(AuthContext);
   const { addToast } = useToasts();
   useEffect(()=>{
     sessionStorage.removeItem('token');
@@ -30,23 +30,26 @@ export default function LoginCard() {
 
     
     try{
-      const response = await axios.post(LOGIN_URL,JSON.stringify({email,password}));
-      console.log(response.data);
-      console.log(response.data.token);
+      const response = await axios.post(LOGIN_URL,JSON.stringify({Email:email,password}));
+      // if(response.data=='invalid email or password');
+      // addToast(response.data,{appearance:'error'});
+      
     sessionStorage.setItem('token',response.data.token);
     sessionStorage.setItem('role',response.data.user.role);
     setToken(response.data.token);
     setRole(response.data.user.role);
+    setUser(response.data.user);
     setEmail('');
     setPassword('');
 
     response.data.user.role=='user'?navigate('/home'):navigate('/home/books');
     console.log("done");
-    addToast('succesful', { appearance: 'success' });
+    addToast('succesfully logged in', { appearance: 'success' });
     }
     catch(e){
-      addToast(e.response.data,{ appearance: 'error' });
-      console.log(e.response.data);
+      console.log(e);
+      addToast("invalid email or password",{ appearance: 'error' });
+      
     }
     
   }
@@ -76,13 +79,7 @@ export default function LoginCard() {
           />
           <label htmlFor='password'>Password</label>
         </div>
-        <div className="content">
-          <div className="checkbox">
-            <input type="checkbox" id="remember-me" />
-            <label for="remember-me">Remember me</label>
-          </div>
-          <div className="pass-link"><a href="#">Forgot password?</a></div>
-        </div>
+       
         <div className="field">
           <input type="submit" value="Login" />
         </div>

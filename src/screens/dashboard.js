@@ -11,7 +11,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 import { useContext, useEffect,useState } from 'react';
 export const Dashboard=()=>{
-    const {token,role,getFine,fine,issue,returned,getIssueBooks,getReturnBooks} = useContext(AuthContext);
+    const {token,role,getFine,fine,issue,returned,getIssueBooks,getReturnBooks,user} = useContext(AuthContext);
     
     useEffect(async()=>{
         // await getBooks('Entertainment');
@@ -23,6 +23,7 @@ export const Dashboard=()=>{
         getFine();
         getReturnBooks();
         getIssueBooks();
+        
     },[])
     
     return(
@@ -50,12 +51,12 @@ export const Dashboard=()=>{
               data={fine}
               />
              </div>
-             {/* <h1>h</h1>
-             <h1>{role}</h1>
-             <h1>{fine}</h1> */}
-             {/* <h1>{token}</h1> */}
-
-        
+             
+             {/* <iframe className='chart' src="https://charts.mongodb.com/charts-library-afhwe/embed/charts?id=6277e216-05a1-4190-89ff-6038e9effe43&maxDataAge=3600&theme=light&autoRefresh=true&attribution=false"></iframe> */}
+            
+<img className='chart' src={require('../css/pie.png')} />
+<img className='chart-2' src={require('../css/no.png')} />
+             {/* <iframe className='chart-2' src="https://charts.mongodb.com/charts-library-afhwe/embed/charts?id=6277e2c3-2aed-4e8b-8720-04e22a16c24a&maxDataAge=3600&theme=light&autoRefresh=true&attribution=false"></iframe> */}
         </div>
         </>
     )

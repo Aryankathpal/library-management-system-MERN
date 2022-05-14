@@ -5,11 +5,12 @@ import { Book } from '@material-ui/icons';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/authProvider';
 import { useToasts } from 'react-toast-notifications';
+import { background } from '@chakra-ui/react';
 
 export const AddBook=()=>{
     const location = useLocation();
     const[book,setBook] = useState({name:'',author:'',isbn:'',category:'',book_depository_stars:'',image:''});
-    const {addbook,deletereq} = useContext(AuthContext);
+    const {addbook,deletereq,updateStatus} = useContext(AuthContext);
     const { addToast } = useToasts();
 
     useEffect(()=>{
@@ -19,12 +20,13 @@ export const AddBook=()=>{
     },[])
     
     const formsubmit=(props)=>{
-        props.preventDefault();
+        
         console.log(book);
         addbook(book);
+        if(location.state!=null)
+        updateStatus(location.state._id,'approved')
+        addToast('Book added succesfully', { appearance: 'success' });
         
-        addToast('succesful', { appearance: 'success' });
-        deletereq(book);
         setBook('');
     }
 
@@ -33,11 +35,14 @@ export const AddBook=()=>{
         <div className="edges">
         <BooksNav name="Add Book" />
         <div className='main' style={{boxShadow: '0 0 11px rgba(33,33,33,.2)'}}>
-        <div class="container">
+       
+        <div class="container"  style={{boxShadow:"none"}}>
     <div class="title">Book details</div>
     <div class="content">
       <form onSubmit={formsubmit}>
+        
         <div class="user-details">
+        <img src={require("../../css/Add-pic.png")} alt="" className="add" />
           <div class="input-box">
             <span class="details">Book Name</span>
             <input type="text"  

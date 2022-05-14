@@ -49,11 +49,16 @@ export const BookDetail=()=>{
     },[])
 
     const btnHandle=()=>{
+        // console.log(issue.length);
         
         if(btnValue=='Issued'){
             addToast('Book is already issued',{ appearance: 'error' });
         }
-        if(btnValue=='Not available')addToast('Book is not available at this moment try after sometime',{appearance:'error'})
+         if(issue.length==5){
+             addToast('You can issue maximum of 5 books',{appearance:'warning'});
+             
+         }
+        else if(btnValue=='Not available')addToast('Book is not available at this moment try after sometime',{appearance:'error'})
         else{
         issueBooks(location.state.data);
         setBtnValue('Issued');
@@ -62,10 +67,13 @@ export const BookDetail=()=>{
         
     }
 
-    const deletebtn=(isbn)=>{
-        deleteBook(isbn);
+    const deletebtn=async (isbn)=>{
+        const response = await deleteBook(isbn);
         navigate('/home/books');
-        addToast('Book deleted successfully',{ appearance: 'success' });
+        console.log(response);
+        if(response === "Book is currently issued")
+        addToast(response,{ appearance: 'error' });
+        else addToast(response,{ appearance: 'success' });
 
     }
     return(
@@ -85,20 +93,22 @@ export const BookDetail=()=>{
 			<span>{location.state.data.author}</span>
 		</div>
 		
-		
+        <h3 className="headings">Details</h3>
 		<div class="description">
-			<h3>Details</h3>
-			<ul>
-				<li>Language    -   english</li>
-				<li>Publisher   -   None</li>
-				<li>ISBN        -   {location.state.data.isbn}</li>
-				<li>Rating      -   {location.state.data.book_depository_stars}</li>
-                <li>category    -   {location.state.data.category}</li>
-			</ul>
+			
+				<p><span className='titles'>Language &nbsp;-</span>  English</p>
+				<p><span className='titles'>Publisher&nbsp; -</span> Berkley Books</p>
+				<p><span className='titles'>ISBN&nbsp; -</span>{location.state.data.isbn}</p>
+				<p><span className='titles'>Rating &nbsp;-</span>{location.state.data.book_depository_stars}</p>
+                <p><span className='titles'>category &nbsp;-</span>{location.state.data.category}</p>
+			
 		</div>
         {role==='user'?
-		<button onClick={btnHandle} class={(btnValue=='Not available'?"btn btn-secondary disabled":btnColor)}>{btnValue}</button>:
-        <button onClick={()=>deletebtn(location.state.data.isbn)} class='buy--btn'>Delete Book</button>}
+		<button onClick={btnHandle} class={(btnValue=='Not available'?"btn btn-secondary disabled":btnColor)}>{btnValue}</button>:<>
+          <button onClick={()=>navigate('/home/update-book',{state:location.state.data})}  class='buy--btn me-3 ms-4'>Update Book</button>
+        <button onClick={()=>deletebtn(location.state.data.isbn)} class='buy--btn'>Delete Book</button>
+              </>}
+
         
 	</div>
 </section>

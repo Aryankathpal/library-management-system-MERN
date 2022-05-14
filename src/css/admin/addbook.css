@@ -19,7 +19,7 @@
   font-weight: 500;
   position: relative;
 }
-.container .title::before{
+/* .container .title::before{
   content: "";
   position: absolute;
   left: 0;
@@ -28,7 +28,7 @@
   width: 30px;
   border-radius: 5px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
-}
+} */
 .content form .user-details{
   display: flex;
   flex-wrap: wrap;
@@ -104,4 +104,10 @@ form .user-details .input-box{
   .container .content .category{
     flex-direction: column;
   }
+}
+
+.add{
+height: 250px;
+width: 400px;
+margin-left: 130px;
 }

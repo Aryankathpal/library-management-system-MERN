@@ -71,21 +71,21 @@ export const Sidebar = () => {
                 <NavLink
                   to="books"
                   className={({ isActive }) => (isActive ? "active" : "")}>
-                  <span className="item"><CurrencyRupeeIcon fontSize="small" style={{marginRight:'5px',marginTop:'-3px'}}/>Books</span>
+                  <span className="item">Books</span>
                 </NavLink>
             </li>
             <li>
             <NavLink
               to="add-book"
               className={({ isActive }) => (isActive ? "active" : "")}>
-              <span className="item"><CurrencyRupeeIcon fontSize="small" style={{marginRight:'5px',marginTop:'-3px'}}/>Add Book</span>
+              <span className="item">Add Book</span>
             </NavLink>
         </li>
         <li>
         <NavLink
           to="requested-books"
           className={({ isActive }) => (isActive ? "active" : "")}>
-          <span className="item"><CurrencyRupeeIcon fontSize="small" style={{marginRight:'5px',marginTop:'-3px'}}/>Requested Books</span>
+          <span className="item">Requested Books</span>
         </NavLink>
     </li></ul>
     // :<>

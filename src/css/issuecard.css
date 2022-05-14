@@ -13,8 +13,11 @@
 }
 .issuecard-img {
   float: left;
-    
+    position: relative;
+    	filter: drop-shadow(1px 1px 3px #a6a6a6);
+
 }
+
 
 .issuecard-img img {
   border-radius: 7px 0px 7px 7px;

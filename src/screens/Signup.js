@@ -16,7 +16,7 @@ import { useToasts } from 'react-toast-notifications';
     const handeleSubmit = async (props) =>{
       props.preventDefault();
       try{
-        const response = await axios.post(SIGNUP_URL,JSON.stringify({name,email,password}),
+        const response = await axios.post(SIGNUP_URL,JSON.stringify({name,Email:email,password}),
         {
           headers:{'Content-Type':'application/json'},
           withCredentials:false
@@ -24,6 +24,9 @@ import { useToasts } from 'react-toast-notifications';
         console.log("user created");
         console.log(response.data);
         addToast('succesful', { appearance: 'success' });
+        setEmail('');
+        setPassword('');
+        setName('');
       }
       catch(e){
         addToast(e.response.data,{ appearance: 'error' });
@@ -63,13 +66,7 @@ import { useToasts } from 'react-toast-notifications';
             required />
             <label htmlFor='password'>Password</label>
           </div>
-          <div className="content">
-            <div className="checkbox">
-              <input type="checkbox" id="remember-me" />
-              <label for="remember-me">Remember me</label>
-            </div>
-            <div className="pass-link"><a href="#">Forgot password?</a></div>
-          </div>
+        
           <div className="field">
             <input type="submit" value="Signup" />
           </div>
