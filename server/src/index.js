@@ -37,7 +37,7 @@ app.get('/search/:key',async(req,res)=>{
 app.use(route);
 app.use(userRoutes);
 
-const dbUri = 'mongodb+srv://aryan:admin@cluster0.gvv3s.mongodb.net/library?retryWrites=true&w=majority'
+const dbUri = 'mongodb+srv://<username>:<password>@cluster0.gvv3s.mongodb.net/library?retryWrites=true&w=majority'
 mongoose.connect(dbUri);
 
 
