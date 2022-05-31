@@ -20,8 +20,8 @@ export const AddBook=()=>{
     },[])
     
     const formsubmit=(props)=>{
-        
-        console.log(book);
+      // props.preventDefault();
+      console.log(location);
         addbook(book);
         if(location.state!=null)
         updateStatus(location.state._id,'approved')

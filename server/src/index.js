@@ -45,7 +45,7 @@ mongoose.connect(dbUri);
 //     res.send(`your email :${req.user.email}`);    
 // })
 
-module.exports=app.listen(3500,()=>{
+module.exports=app.listen(3600,()=>{
     console.log("server started at port 3500");
 })
 
