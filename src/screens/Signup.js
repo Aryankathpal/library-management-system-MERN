@@ -5,7 +5,7 @@ import axios from '../api/axios';
 import { useToasts } from 'react-toast-notifications';
 
   
-  const SIGNUP_URL = '/signup';
+  const SIGNUP_URL = '/signup/auth';
 
   export default function SignupCard() {
     const [name, setName] = useState('');
