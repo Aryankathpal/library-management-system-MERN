@@ -6,7 +6,7 @@ import axios from '../api/axios';
 import { useToasts } from 'react-toast-notifications';
 
 
-const LOGIN_URL = '/signin';
+const LOGIN_URL = '/signin/auth';
 
 export default function LoginCard() {
   
